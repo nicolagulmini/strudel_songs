@@ -1,0 +1,6 @@
+setcpm(100/4)
+$: sound("hh:3*2 hh hh hh:4*2 hh:3*2 hh hh hh:2*7, bd - sd:4 - - bd:2 sd:4 -").bank("RolandTR808")
+$: note("<[e4 - e4 - - - - -] - - - [e5 - e5 - - - - -] - - ->").sound("piano, gm_electric_guitar_muted")
+$: note("- - - [- e4:4]*2").sound("gm_voice_oohs")
+$: note("[e2 -]*2 [eb2 e2 gb2 - gb2 e2 eb2 -]").sound("sawtooth, gm_acoustic_bass")
+$: n("0 2 4 <[6,8] [7,9]>").scale("E:minor")
