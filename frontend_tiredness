@@ -1,0 +1,10 @@
+setcpm(10)
+// main beat
+$: sound("<[bd - - - - bd - -]*4>").gain("[.7 .4]*2 [.5 .6]*2").lpf("8000 10000 8000 10000")
+$: sound("[hh*8]*4").gain("[.4 .9 .6 .8]*2 [.4 .7 .6 .9]*2").lpf("9000 5000 7000 10000")
+$: sound("<[- - rim - - - rim -]*4>").gain("[.5 .7]*2 [.9 .7]*2").lpf("8000").room(0.05)
+// bass
+$: n("<<-12> <-8> <-9> <-7>>").scale("E:minor").sound("gm_synth_bass_2")
+// effects (delay)
+$: sound("<- rim - ->").bank("RolandTR707").gain(0.4).delay(".4:.06:0.9").room(0.3)
+$: sound("<- - rim ->").bank("RolandTR707").gain(0.2).delay(".3:.09:0.7").room(0.4)
