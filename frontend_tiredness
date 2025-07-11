@@ -1,14 +1,25 @@
 setcpm(10)
 // main beat
-$: sound("<[[bd -@4 bd -@2] [-@5 bd -@2]]*2>").gain("[.7 .4]*2 [.5 .6]*2").lpf("5000")
-$: sound("<[[-@5 bd -@2] [- bd -@3 bd -@2]]*2>").bank("RolandTR707").gain(1.2).hpf(500)
-$: sound("[hh*8]*4").gain("[.4 .9 .6 .8]*2 [.4 .7 .6 .9]*2").lpf("8000")
-$: sound("<[-@2 rim -@3 rim -]*4>").gain("[.5 .7]*2 [.9 .7]*2").lpf("5000").room(0.4)
-$: sound("<[-]*3 [-@7 [- rim*2]]>").hpf("2000").bank("RolandTR707").room(0.3)
+$: stack(
+  sound("<[[bd -@4 bd -@2] [-@5 bd -@2]]*2>").gain("[.7 .4]*2 [.5 .6]*2").lpf("5000"),
+  sound("<[[-@5 bd -@2] [- bd -@3 bd -@2]]*2>").bank("RolandTR707").gain(1.2).hpf(500),
+  sound("[hh*8]*4").gain("[.4 .9 .6 .8]*2 [.4 .7 .6 .9]*2").lpf("8000"),
+  sound("<[-@2 rim -@3 rim -]*4>").gain("[.5 .7]*2 [.9 .7]*2").lpf("5000").room(0.4),
+  sound("<[-]*3 [-@7 [- rim*2]]>").hpf("2000").bank("RolandTR707").room(0.3)
+)._scope()
 // bass
-$: n("<<[-7 -8]> <[-9 -10]> <[-7 -8]> <[-9 [-10 [-7 -8 -9 -10]]]>>").scale("A:minor").sound("gm_synth_bass_2")
-// lil guitar
-$: n("<<[[7 8@2 10] [7 6@2 8]]> <[[5 6@2 7] [4@2 2 1]]> <-> <->>").scale("A:minor").sound("gm_electric_guitar_muted").pan("<<[0 .25]> <[.5 .75]> <-> <-> <[1 .75]> <[.5 .25]> <-> <->>").room(.2).gain(.5)
+$: n("<<[-7 -8]> <[-9 -10]> <[-7 -8]> <[-9 [-10 [-7 -8 -9 -10]]]>>")
+  .scale("A:minor").sound("gm_synth_bass_2")
+  .sometimes(add(note(12)))     
+  .lpf(400)
+  .adsr("0:0.2:0:0")
+  ._scope()
 // effects (delay)
-$: sound("<- rim -@2>").bank("RolandTR707").gain(0.4).hpf(1000).delay(".4:.06:1").room(0.3)
-$: sound("<-@2 rim ->").bank("RolandTR707").gain(0.3).delay(".3:.09:1").room(0.4)
+$: sound("<- rim -@2>").bank("RolandTR707").gain(0.3).hpf(1000).adsr("0:1:0:0").delay(".4:.06:1").room(0.3)
+$: sound("<-@2 rim ->").bank("RolandTR707").gain(0.2).delay(".3:.09:1").room(0.4)
+// texture
+$: sound("crackle").fast(5)
+$: stack( 
+  sound("<white -@3>").pan(0),
+  sound("<-@3 white>").pan(1)
+  ).gain(0.2).dist(1).adsr("0.1:0:0:0").delay("0.2:.5:0.5")
